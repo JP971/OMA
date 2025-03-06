@@ -651,8 +651,56 @@ unique(rowData(tse_subset_by_feature)$Phylum)
 
 ### Library sizes
 
+In this exercise, We'll explore how to calculate the library sizes of each sample.
+We'll also rarefy the counts and check how it changes the library sizes.
+
+
 1. Calculate library sizes
+
+```{r}
+#| label: library_size-ex1
+#| eval: FALSE
+#| code-fold: true
+#| code-summary: "Show solution"
+
+# import the data of interest
+library(mia)
+data("GlobalPatterns", package = "mia")
+tse <- GlobalPatterns
+
+# Calculate the library sizes for each experiment
+tse <- addPerCellQC(tse)
+tse$total
+```
+
 2. Subsample / rarify the counts (see: rarefyAssay)
+
+```{r}
+#| label: library_size-ex2
+#| eval: FALSE
+#| code-fold: true
+#| code-summary: "Show solution"
+
+# Rarify the "counts" assay 
+tse <- rarifyAssay(tse)
+
+# Check the new assay
+assayNames(tse) # [1] "counts"     "subsampled"
+assay(tse, "subsampled")
+```
+
+3. Compare the changes to the library sizes before and after rarefication
+
+```{r}
+#| label: library_size-ex3
+#| eval: FALSE
+#| code-fold: true
+#| code-summary: "Show solution"
+
+# Take a look at the changes in the means of the sample
+summary(assay(tse,"subsampled"))
+summary(assay(tse,"counts"))
+```
 
 Useful functions: nrow, ncol, dim, summary, table, quantile, unique,
 scater::addPerCellQC, mia::agglomerateByRank
