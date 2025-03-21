@@ -89,11 +89,11 @@ tse <- addPerCellQCMetrics(tse)
 #Visualizes colData and plots distribution of library sizes
 colData(tse) |> head()
 library(miaViz)
-plotHistogram(x = tse,col.var = "total")
+plotHistogram(x = tse, col.var = "total")
 
 #Subsets based on library size and then subsets again based on feature prevalence
-tse_Lsize <- tse[,tse$total > 500000]
-tse_subset <- subsetByPrevalent(tse_Lsize,detection = 1, prevalence = 2/10)
+tse_Lsize <- tse[, tse$total > 500000]
+tse_subset <- subsetByPrevalent(tse_Lsize, detection = 1, prevalence = 2/10)
 ```
 
 ## Agglomeration
