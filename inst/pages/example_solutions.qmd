@@ -67,13 +67,23 @@ These example solutions are related to exercises in
 #| code-summary: "Show the solution"
     
 ```
-
 ## Data wrangling
 
 These example solutions are related to exercises in [@sec-datawrangling].
 
 ```{r}
 #| label: wrangling
+#| code-fold: true
+#| code-summary: "Show the solution"
+
+```
+
+## Subsetting
+
+These example solutions are related to exercises in [@sec-subsetting].
+
+```{r}
+#| label: subsetting
 #| code-fold: true
 #| code-summary: "Show the solution"
 
