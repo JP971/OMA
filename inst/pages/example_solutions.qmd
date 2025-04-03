@@ -102,7 +102,11 @@ tse <- enterotype
 colData(tse) |> head()
 
 # Create variable 'group' containing 3 random classifications for each entry
-tse[["group"]] <- sample(c("group_1", "group_2", "group_3"), ncol(tse), replace = TRUE)
+tse[["group"]] <- sample(
+    c("group_1", "group_2", "group_3"),
+    ncol(tse),
+    replace = TRUE
+)
 
 # Plot how groups are distributed
 library(miaViz)
