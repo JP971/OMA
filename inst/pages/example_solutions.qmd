@@ -226,7 +226,48 @@ These example solutions are related to exercises in [@sec-assay-transform].
 #| label: transformation
 #| code-fold: true
 #| code-summary: "Show the solution"
-    
+
+# Load the example dataset
+library(mia)
+library(miaViz)
+data("GlobalPatterns", package = "mia")
+tse <- GlobalPatterns
+
+# Visualize counts
+plotHistogram(tse, assay.type = "counts")
+
+# Transformations on the counts assay
+tse <- transformAssay(tse, assay.type = "counts", method = "relabund")
+tse <- transformAssay(tse, assay.type = "counts", method = "clr", pseudocount = 1)
+
+assayNames(tse)
+
+# Plots the two different assays
+library(patchwork)
+p1 <- plotHistogram(tse, assay.type = "counts")
+p2 <- plotHistogram(tse, assay.type = "clr")
+
+p1 + p2
+
+# Subset the abundance table
+CLR <- assay(tse, "clr")
+CLR[1:100, 1:10]
+
+# Agglomerate data by rank
+tse <- agglomerateByRank(tse)
+
+# Transform assay by taxonomy rank
+tse_phylum <- altExp(tse, "Phylum")
+tse_phylum <- transformAssay(tse_phylum, assay.type = "counts",
+                        method = "relabund")
+tse_phylum <- transformAssay(tse_phylum, assay.type = "counts",
+                        method = "clr", pseudocount = 1)
+
+# phiLR transformation
+tse <- transformAssay(tse, assay.type = "counts", method = "philr",
+                MARGIN = 1L, pseudocount = TRUE)
+
+assay(altExp(tse, "philr"))
 ```
 
 ## Community composition
