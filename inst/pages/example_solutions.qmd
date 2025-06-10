@@ -260,14 +260,14 @@ These example solutions are related to exercises in [@sec-assay-transform].
 # Load the example dataset
 library(mia)
 library(miaViz)
-data("GlobalPatterns", package = "mia")
+data("GlobalPatterns")
 tse <- GlobalPatterns
 
 # Visualize counts
 plotHistogram(tse, assay.type = "counts")
 
 # Transformations on the counts assay
-tse <- transformAssay(tse, assay.type = "counts", method = "relabund")
+tse <- transformAssay(tse, assay.type = "counts", method = "relabundance")
 tse <- transformAssay(tse, assay.type = "counts", method = "clr", pseudocount = 1)
 
 assayNames(tse)
@@ -283,19 +283,19 @@ p1 + p2
 CLR <- assay(tse, "clr")
 CLR[1:100, 1:10]
 
-# Agglomerate data by rank
-tse <- agglomerateByRank(tse)
+# Agglomerate data by Phylum rank
+tse_phylum <- agglomerateByRank(tse, rank = "Phylym")
 
-# Transform assay by taxonomy rank
+# Apply transformation to Phylum data
 tse_phylum <- altExp(tse, "Phylum")
-tse_phylum <- transformAssay(tse_phylum, assay.type = "counts",
-                        method = "relabund")
-tse_phylum <- transformAssay(tse_phylum, assay.type = "counts",
-                        method = "clr", pseudocount = 1)
+tse_phylum <- transformAssay(
+    tse_phylum, assay.type = "counts", method = "relabundance")
+tse_phylum <- transformAssay(
+    tse_phylum, assay.type = "counts", method = "clr", pseudocount = 1)
 
 # phiLR transformation
-tse <- transformAssay(tse, assay.type = "counts", method = "philr",
-                MARGIN = 1L, pseudocount = TRUE)
+tse <- transformAssay(
+    tse, assay.type = "counts", method = "philr", MARGIN = 1L, pseudocount = TRUE)
 
 assay(altExp(tse, "philr"))
 ```
