@@ -280,8 +280,8 @@ p2 <- plotHistogram(tse, assay.type = "clr")
 p1 + p2
 
 # Subset the abundance table
-CLR <- assay(tse, "clr")
-CLR[1:100, 1:10]
+clr_matrix <- assay(tse, "clr")
+clr_matrix[1:10, 1:5]
 
 # Agglomerate data by Phylum rank
 tse_phylum <- agglomerateByRank(tse, rank = "Phylym")
