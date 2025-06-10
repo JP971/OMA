@@ -181,36 +181,40 @@ These example solutions are related to exercises in [@sec-quality-control].
 library(mia)
 library(miaViz)
 library(scuttle)
-data("GlobalPatterns", package = "mia")
+data("GlobalPatterns")
 tse <- GlobalPatterns
 
-summary(tse)
+# Plot counts with a histogram
+plotHistogram(tse, assay.type = "counts")
 
-# Adds Prevalence to RowData
+# Add prevalence to rowData
 tse <- addPrevalence(tse)
 
-# Plots the distribution of values
+# Plot the distribution of prevalence values
 plotHistogram(tse, row.var = "prevalence")
 
-# Adds library size
+# Add library size to colData
 tse <- addPerCellQCMetrics(tse)
-colData(tse)
+# And visualize them
 plotHistogram(tse, col.var = "total")
 
-# Plots Categorical Data
+# Plot categorical values with a barplot
 plotBarplot(tse, col.var = "SampleType")
 
 # Available taxonomic ranks
 taxonomyRanks(tse)
 
-# Checks the dominance of Genera
+# Checks the dominance of genera
 summarizeDominance(tse, rank = "Genus")
-getPrevalent(tse, rank = "Genus", prevalence = .2, detection = 1)
 
+# Get the most prevalent taxa
+getPrevalent(tse, rank = "Genus", prevalence = 0.2, detection = 1)
+
+# Get the most abundant taxa based on their median abundance
 getTop(tse, method = "median")
 
+# Visualzie the most prevalent features
 plotAbundanceDensity(tse)
-
 ```
 
 ## Subsetting
